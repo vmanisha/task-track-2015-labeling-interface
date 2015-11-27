@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" /> 
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+<script src="./js/api.js"></script> 
+<link rel="stylesheet" href="jquery.mobile-1.1.0.custom.css?" />
+</head>
+<body>
+
+<div id="task-genie" data-url="Task Genie" data-role="page">
+	<div data-role="header">
+
+		<!--<div data-role="navbar">
+			<ul>
+			<li><a href="#my-stats">My Stats</a></li>
+			<li><a href="#label-tasks">Label</a></li>
+			<li><a href="#submit-tasks">Submit</a></li>
+			<li><a href="#guide">Guide!</a></li>
+			</ul>
+		</div>-->
+
+	</div>
+
+	<div data-role="content">
+		
+		<form id="signIn" class = 'validate' method='post'>
+			<div data-role="fieldcontain">
+			<label for="uemail">Email</label>
+			<input type="text" name="email" id="uemail" class="required" />
+			</div>
+	
+			<div data-role="fieldcontain">
+			<label for="upass">Password</label>
+			<input type="password" name="password" id="upass" class="required"/>
+			</div>
+	
+			<input id="submit" class="btnLogin" type="submit" value='Submit'/>
+		</form>
+	</div>
+</div>
+
+<div id="my-stats" data-url="my-stats" data-role="page">
+	<div data-role="header">
+
+		<div data-role="navbar">
+		<ul>
+		<li><a href="#my-stats" class="ui-btn-active">My Stats</a></li>
+		<li><a href="#label-tasks">Label</a></li>
+		<li><a href="#submit-tasks">Submit</a></li>
+		<li><a href="#guide">Guide!</a></li>
+		</ul>
+		</div>
+	
+	</div>
+
+	<div data-role="content">
+
+		<span id="username" class="text"></span>
+		<span id="userLabelCount" class="text"></span>
+		<span id="userTaskCount" class="text"></span>
+		<input id="submit" class="btnLogin" type="submit" value='Logout' onclick='return signOut()'/>
+	</div>
+</div>
+
+
+<div id="label-tasks" data-url="label-tasks" data-role="page" >
+
+<div data-role="header" data-theme="b">
+
+	<div data-role="navbar">
+	<ul>
+	<li><a href="#my-stats" data-theme="a">My Stats</a></li>
+	<li><a href="#label-tasks" class="ui-btn-active" data-theme="a">Label</a></li>
+	<li><a href="#submit-tasks" data-theme="a">Submit</a></li>
+	<li><a href="#guide" data-theme="a">Guide!</a></li>
+	</ul>
+	</div>
+
+</div>
+
+
+<div data-role="content">
+
+
+	<span id="help-text" class="text">How are queries A and B related</span> 
+	<input id='pair-id' class ='text' type='hidden'></input>
+
+	<form id="task-label-form" method="post" >
+
+		<div data-role="fieldcontain">
+		<label for="query1"><b>A : </b></label>
+		<span name="query1" id="query1">Query 1</span>
+		</div>
+
+		<div data-role="fieldcontain">
+		<label for="query2"><b>B : </b></label>
+		<span name="query2" id="query2">Query 2</span>
+		</div>
+
+		<div data-role="fieldcontain">
+		<fieldset data-role="controlgroup">
+		<!--<legend>task-type</legend> -->
+		<input id="task-type_1" type="radio" name="task-type" value="a-same-b"/>
+		<label for="task-type_1">A &amp; B similar tasks</label>
+		<input id="task-type_3" type="radio" name="task-type" value="b-dep-a"/>
+		<label for="task-type_3">A &amp; B dependent tasks</label> 
+	<!--<input id="task-type_2" type="radio" name="task-type" value="a-sub-b"/>
+	<label for="task-type_2">A subtask of B</label>
+	<input id="task-type_3" type="radio" name="task-type" value="b-sub-a"/>
+	<label for="task-type_3">B subtask of A</label> -->
+		<input id="task-type_4" type="radio" name="task-type" value="a-b-diff"/>
+		<label for="task-type_4">A and B different tasks</label>
+		<input id="task-type_5" type="radio" name="task-type" value="skip" checked="checked"/>
+		<label for="task-type_5">Skip this pair</label>
+		</fieldset>
+		</div>
+		<input id="submit-label" class="btnLogin" type="submit" value="Submit"/>
+	</form>
+
+</div>
+
+</div>
+
+<div id="submit-tasks" data-url="submit-tasks" data-role="page">
+<div data-role="header">
+
+<div data-role="navbar">
+<ul>
+<li><a href="#my-stats">My Stats</a></li>
+<li><a href="#label-tasks">Label</a></li>
+<li><a href="#submit-tasks" class="ui-btn-active">Submit</a></li>
+<li><a href="#guide">Guide!</a></li>
+</ul>
+</div>
+
+</div>
+
+<div data-role="content">
+
+<form id="entity-label-form" method="post" >
+
+	<span id="help-text" class="text"> Input Tasks for Entity and first Query</span> 
+	<input id='entity-id' class ='text' type = 'hidden'></input>
+
+	<div data-role="fieldcontain">
+	<label for="entity-name"><b>Entity : </b></label>
+	<span name="entity-name" id="entity-name"> Madagascar</span>
+	<label for="entity-query"><b>Query : </b></label>
+	<span name="entity-query" id="entity-query"> Madagascar Hotels</span>
+	</div>
+	
+	<div data-role="fieldcontain">
+	<label for="inp_tw48">Task 1</label>
+	<input type="text" name="task-1" id="task-1" value="Find hotels"/>
+	</div>
+
+	<div data-role="fieldcontain">
+	<label for="inp_tw46">Task 2</label>
+	<input type="text" name="task-2" id="task-2" value="Find restaurants"/>
+	</div>
+	
+	<div data-role="fieldcontain">
+	<label for="inp_tw47">Task 3</label>
+	<input type="text" name="task-3" id="task-3" value="Get Cab"/>
+	</div>
+	
+	<input id="submit" type="submit" value="Submit Tasks"/>
+</form>
+</div></div>
+
+<div id="guide" data-url="guide" data-role="page">
+<div data-role="header">
+
+<div data-role="navbar">
+<ul>
+<li><a href="#my-stats">My Stats</a></li>
+<li><a href="#label-tasks">Label</a></li>
+<li><a href="#submit-tasks">Submit</a></li>
+<li><a href="#guide" class="ui-btn-active">Guide!</a></li>
+</ul>
+</div>
+
+</div>
+
+<div data-role="content">
+<span id="guide-content" class="content">Hi There!<br/><br/>This webapp has been created to <strong>collect some data for upcoming <a data-rel="dialog" href="http://www.cs.ucl.ac.uk/tasks-track-2015/">Tasks Track</a></strong>. There are two types of labels we encourage you to provide. <br/><br/><strong>First, task labels for 2 queries.</strong> This is to group queries into two classes : same task or different task. For example, 'london hotels' and 'barcelona hotels' are queries for same task 'hotels'. Whereas, 'sudoku' and 'pret menu' are queries that belong to different tasks. <br/><br/><strong>Second, for a given entity, a starting query, we ask you to list follow up tasks to that query that come to your mind</strong>. It could from a very specific to a very generic task. For example, for entity 'madagascar', I could submit following tasks :'travel to madagascar', 'weather in madagascar', 'population of madagascar'. <br/><br/>There is no correct answer here, the app will show you statistics of other users too! So, engage with the app and enjoy!!<br/><br/></span>
+
+</div></div>
+
+</body>
+</html>
